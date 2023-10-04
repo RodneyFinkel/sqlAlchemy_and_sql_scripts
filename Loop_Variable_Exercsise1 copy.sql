@@ -1,0 +1,94 @@
+--FUNCTION FOR CREATING A TABLE AND POPULATING IT WITH DATA ACCORDING TO CRITERIA
+
+CREATE TABLE Test_Table2 (cola INT, colb CHAR(3));
+GO
+SET NOCOUNT ON;
+GO
+
+DECLARE @MyCounter INT;
+SET @MyCounter = 1;
+WHILE (@MyCounter < 26)
+BEGIN;
+	INSERT INTO Test_Table2 VALUES
+		(@MyCounter, CHAR((@MyCounter + ASCII('a')))
+		);
+	SET @MyCounter = @MyCounter + 1;
+END;
+GO
+SET NOCOUNT OFF;
+GO
+
+SELECT cola, colb
+FROM Test_Table2;
+GO
+DROP TABLE Test_Table2
+GO
+
+
+----CTE EXAMPLE---
+
+WITH DateSeries AS
+ (
+ SELECT CAST('01-01-2022' AS DATE) AS MyDate
+
+ UNION ALL
+
+ SELECT 
+ DATEADD(DAY, 1, MyDate)
+ FROM DateSeries
+ WHERE Mydate < CAST ('12-31-2022' AS DATE)
+ )
+
+ SELECT 
+ MyDate
+ FROM DateSeries
+ OPTION(MAXRECURSION 365)
+
+ ---DATE VARIABLE EXERCISE---
+
+ DECLARE @Today DATE
+ SET @Today = CAST(GETDATE() AS DATE)
+
+ DECLARE @BOM DATE
+ SET @BOM = DATEFROMPARTS(YEAR(@Today), MONTH(@Today), 1)
+
+ DECLARE @PrevBOM DATE
+ SET @PrevBOM = DATEADD(MONTH, -1, @BOM)
+
+ DECLARE @PrevEOM DATE
+ SET @PrevEOM = DATEADD(DAY, -1, @BOM)
+
+ SELECT * FROM [AdventureWorks2016].dbo.Calendar
+ WHERE DateValue BETWEEN @PrevBOM AND @PREVEOM
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
