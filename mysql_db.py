@@ -22,6 +22,7 @@ class SQLData:
         self.__tables = dict()
         
     def connect(self):
+        password = os.environ.get('DB_PASSWORD', self.__pwd)
         self.__engine = sqlalchemy.create_engine(
             f"mysql+pymysql://{self.__uid}:{self.__pwd}@{self.__server}/{self.__db}"
         )
