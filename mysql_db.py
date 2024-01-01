@@ -13,7 +13,7 @@ from sqlalchemy import Table, Column, Integer, String, MetaData, Date, ForeignKe
 # Encapsulation suggested through name mangling with use of double underscores __server
 # This makes the attributes class level private
 class SQLData:
-    def __init__(self, server:str, db:str, uid:str, pwd:str) -> None:
+    def __init__(self, server:str, db:str, uid:str, pwd:str):
         self.__fake = Faker()
         self.__server = server
         self.__db = db
@@ -21,7 +21,7 @@ class SQLData:
         self.__pwd = pwd
         self.__tables = dict()
         
-    def connect(self) -> None:
+    def connect(self):
         self.__engine = sqlalchemy.create_engine(
             f"mysql+pymysql://{self.__uid}:{self.__pwd}@{self.__server}/{self.__db}"
         )
@@ -30,10 +30,10 @@ class SQLData:
         self.__meta.reflect(bind=self.__engine)
     
     
-    def drop_all_tables(self) -> None:
+    def drop_all_tables(self):
         pass
     
-    def create_tables(self) -> None:
+    def create_tables(self):
         self.__tables['jobs'] = Table (
             'jobs', self.__meta,
             Column('job_id', Integer, primary_key=True, autoincrement=True, nullable=False),
@@ -66,7 +66,7 @@ class SQLData:
 
         self.__meta.create_all(bind=self.__engine)
     
-    def populate_tables(self) -> None:
+    def populate_tables(self):
         jobs_ins = list()
         companies_ins = list()
         persons_ins = list()
