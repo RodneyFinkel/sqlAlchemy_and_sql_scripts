@@ -1,6 +1,11 @@
+import os 
+from dotenv import load_dotenv
 import numpy as np 
 import sqlalchemy 
 from faker import Faker 
+
+
+load_dotenv()
 
 # mysqlconnector instead of pymysql line 21/make sure both are pip installed
 
@@ -101,7 +106,7 @@ class SQLData:
 
     
 if __name__ == '__main__':
-    sql = SQLData('localhost','practice_db','root','globular')
+    sql = SQLData('localhost','practice_db','root','DB_PASSWORD')
     sql.connect()
     sql.create_tables()
     sql.populate_tables()

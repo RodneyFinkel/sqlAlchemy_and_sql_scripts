@@ -1,6 +1,11 @@
+import os 
+from dotenv import load_dotenv
 import numpy as np
 import sqlalchemy
 from faker import Faker
+ 
+
+load_dotenv()
 
 # Use psycopg2 as the PostgreSQL adapter
 from sqlalchemy.dialects.postgresql import psycopg2
@@ -18,6 +23,7 @@ class SQLData:
         self.__tables = dict()
 
     def connect(self):
+        password = os.environ.get('DB_PASSWORD', self.__pwd)
         # Change here: Use 'postgresql+psycopg2' instead of 'mysql+pymysql'
         self.__engine = sqlalchemy.create_engine(
             f"postgresql+psycopg2://{self.__uid}:{self.__pwd}@{self.__server}/{self.__db}"
@@ -106,7 +112,7 @@ class SQLData:
 
 
 if __name__ == '__main__':
-    sql = SQLData('localhost', 'practice_db', 'postgres', 'globular')
+    sql = SQLData('localhost', 'practice_db', 'postgres', 'DB_PASSWORD')
     sql.connect()
     sql.create_tables()
     sql.populate_tables()
