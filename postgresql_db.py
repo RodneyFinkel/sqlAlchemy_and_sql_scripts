@@ -15,14 +15,14 @@ from sqlalchemy import Table, Column, Integer, String, MetaData, Date, ForeignKe
 
 class SQLData:
     def __init__(self, server: str, db: str, uid: str, pwd: str):
-        self.__fake = Faker()
         self.__server = server
         self.__db = db
         self.__uid = uid
         self.__pwd = pwd
+        self.__fake = Faker()
         self.__tables = dict()
 
-    def connect(self):
+    def connect(self): 
         password = os.environ.get('DB_PASSWORD', self.__pwd)
         # Change here: Use 'postgresql+psycopg2' instead of 'mysql+pymysql'
         self.__engine = sqlalchemy.create_engine(
