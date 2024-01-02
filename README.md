@@ -1,7 +1,9 @@
 sqlAlchemy_and_sql_scripts: Some sql scripts for data manipulation and cleaning as well as sqlAlchemy script for creating a table and populating with fake data
 
+RUN: mysql -u root -p in the terminal
 
-SAMPLE QUERY IN mysql_db.py after running mysql -u root -p in the terminal
+SAMPLE QUERY for mysql_db.py 
+
 SELECT
   p.first_name,
   p.last_name,
